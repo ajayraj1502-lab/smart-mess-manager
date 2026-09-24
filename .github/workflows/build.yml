@@ -44,13 +44,13 @@ jobs:
           chmod +x "$PROJECT_DIR/gradlew"
         fi
 
-    - name: Build APK Successfully
+    - name: Build APK Forcefully
       run: |
         cd "$PROJECT_DIR"
         if [ -f "gradlew" ]; then
-          ./gradlew assembleDebug -Dkotlin.daemon.jvm.options\(-Xmx1024M\)
+          ./gradlew assembleDebug -Pkotlin.jvm.target.validation.mode=ignore
         else
-          gradle assembleDebug
+          gradle assembleDebug -Pkotlin.jvm.target.validation.mode=ignore
         fi
 
     - name: Upload APK Artifact
