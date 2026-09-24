@@ -44,14 +44,13 @@ jobs:
           chmod +x "$PROJECT_DIR/gradlew"
         fi
 
-    - name: Build APK with Java 17 Override
+    - name: Build APK Successfully
       run: |
         cd "$PROJECT_DIR"
-        export org.gradle.java.home="${JAVA_HOME}"
         if [ -f "gradlew" ]; then
-          ./gradlew assembleDebug -Dkotlin.jvm.target.validation.mode=warning -Dkotlin.compiler.jvmTarget=17
+          ./gradlew assembleDebug -Dkotlin.daemon.jvm.options\(-Xmx1024M\)
         else
-          gradle assembleDebug -Dkotlin.jvm.target.validation.mode=warning -Dkotlin.compiler.jvmTarget=17
+          gradle assembleDebug
         fi
 
     - name: Upload APK Artifact
